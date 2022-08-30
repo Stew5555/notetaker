@@ -5,8 +5,20 @@ const express = require('express');
 const app = express();
 
 //creates variable port
-const port = process.env.port || 3001;
+const PORT = process.env.port || 3001;
 
 //creates route for files in the public folder 
-app.use
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+
+//routes
+require('./routes/apiRoutes')(app);
+require('./routes/htmlRoutes')(app);
+
+//starts the server
+app.listen(PORT, () => { 
+    console.log(`app listening at localhost${PORT}`);
+});
 
